@@ -4,7 +4,7 @@
 function parse_extensions {
 	# Check whether we are in fs1 or fs2
 	index=0
-	declare -a files
+	declare files
 	declare -a Exts
 	immediate=0
 	total=0
@@ -14,21 +14,16 @@ function parse_extensions {
 		# If in fs1/, all files without an extension in extensions/ contain file listings.
 		cd fs1/extensions
 		pwd
-		for file  in `find . -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash"`; do
-			echo $file
-#			for ext in "$@"; do
-#				ExtCount[$ext]=0
-#			done
-			#todo: find out why this only works for .gif's
-			Exts=("${!2}")
-			for ext in "${Exts[@]}"; do
-				temp=`grep "$ext" "$file" | wc -l`
-				echo $ext $file
-				grep "$ext" "$file" | wc -l
-				ExtCount[$ext]=$[ExtCount[$ext] + $temp]
-				echo $ext ${ExtCount[$ext]}
-				
-			done
+		#for file  in `find . -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash"`; do
+		files=$(find "$PWD" -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash" ! -name "*.swo" ! -name "*.swp" ! -name "*.zip" -printf "%P ")
+
+		Exts=("${!2}")
+		for ext in "${Exts[@]}"; do
+			temp=`grep $ext $files | wc -l`
+			ExtCount[$ext]=$[ExtCount[$ext
+			] + $temp]
+			echo $ext ${ExtCount[$ext]}
+			
 		done
 
 		echo ${files[*]}
@@ -54,8 +49,8 @@ function parse_extensions {
 	fi
 }
 
-image_formats=("\.jpeg", "\.bmp", "\.png", "\.gif")
-source_formats=("\.c", "\.py", "\.pl", "\.sh")
+image_formats=("\.jpeg" "\.bmp" "\.png" "\.gif")
+source_formats=("\.c" "\.py" "\.pl" "\.sh")
 
 parse_extensions "fs1" image_formats[@]
 img_total=$?
