@@ -45,11 +45,15 @@ function parse_extensions {
 	echo $total
 }
 
-image_formats=("\.jpeg" "\.bmp" "\.png" "\.gif")
-source_formats=("\.c" "\.py" "\.pl" "\.sh")
+#image_formats=("\.jpeg$" "\.bmp$" "\.png$" "\.gif$")
+#source_formats=("\.c$" "\.py$" "\.pl$" "\.sh$")
 
-img_total=$(parse_extensions "fs1" image_formats[@])
-printf "\nTotal Image Files: $img_total \n"
-parse_extensions "fs2" source_formats[@]
-src_total=$?
-echo $src_total
+declare -A ImageFormatToRegexMap=( [.jpeg]="\.jpeg$" [.bmp]="\.bmp$" [.png]="\.png$" [.gif]="\.gif$" )
+declare -A SourceFormatToRegexMap=( [.c]="\.c$" [.py]="\.py$" [.pl]="\.pl$" [.sh]="\.sh$" )
+
+printf "\nSearching for these Image File formats: "; echo "${!ImageFormatToRegexMap[@]}";  printf "\n"
+img_total=$(parse_extensions "fs1" ImageFormatToRegexMap[@])
+printf "\tTotal Image Files: $img_total\n\n"
+printf "Searching for these Source Code formats: "; echo "${!SourceFormatToRegexMap[@]}"; printf "\n"
+src_total=$(parse_extensions "fs2" SourceFormatToRegexMap[@])
+printf "\tTotal Source Code Files: $src_total"
