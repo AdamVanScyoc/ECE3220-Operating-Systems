@@ -5,7 +5,7 @@ function parse_extensions {
 	# Check whether we are in fs1 or fs2
 	index=0
 	declare files
-	declare -a Exts
+	declare -n Exts=$2
 	immediate=0
 	total=0
 	declare -A ExtCount
@@ -15,7 +15,6 @@ function parse_extensions {
 		cd fs1/extensions
 		files=$(find "$PWD" -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash" ! -name "*.swo" ! -name "*.swp" ! -name "*.zip" -printf "%P ")
 
-		Exts=("${!2}")
 		for ext in "${Exts[@]}"; do
 			temp=`grep $ext $files | wc -l`
 			ExtCount[$ext]=$[ExtCount[$ext] + $temp]
@@ -29,7 +28,6 @@ function parse_extensions {
 		cd fs2
 		files=$(find . -type f \( -name "extensions.txt" -or -name "extensions2.txt" \) -printf "%P ")
 
-		Exts=("${!2}")
 		for ext in "${Exts[@]}"; do
 			temp=`grep $ext $files | wc -l`
 			ExtCount[$ext]=$[ExtCount[$ext] + $temp]
@@ -39,6 +37,7 @@ function parse_extensions {
 
 	cd $OLDPWD
 	echo $total
+	return $total
 }
 
 #image_formats=("\.jpeg$" "\.bmp$" "\.png$" "\.gif$")
@@ -47,9 +46,19 @@ function parse_extensions {
 declare -A ImageFormatToRegexMap=( [.jpeg]="\.jpeg$" [.bmp]="\.bmp$" [.png]="\.png$" [.gif]="\.gif$" )
 declare -A SourceFormatToRegexMap=( [.c]="\.c$" [.py]="\.py$" [.pl]="\.pl$" [.sh]="\.sh$" )
 
+# Count all image filetypes in ImageFormatToRegexMap
 printf "\nSearching for these Image File formats: "; echo "${!ImageFormatToRegexMap[@]}";  printf "\n"
-img_total=$(parse_extensions "fs1" ImageFormatToRegexMap[@])
+img_total=$(parse_extensions "fs1" ImageFormatToRegexMap)
+# Use a ExtCount as a parallel array with ImageFormatToRegexMap to display each extension's count
+for k in "${!ExtCount[@]}"; do
+	printf "\tFile Extension: "; echo "${!ImageFormatToRegexMap[$k]}"; printf "\tCount: "; echo "${ExtCount[$k]}"; printf "\n"
+done
 printf "\tTotal Image Files: $img_total\n\n"
+
+# Count all source code filetypes in SourceFormatToRegexMap
 printf "Searching for these Source Code formats: "; echo "${!SourceFormatToRegexMap[@]}"; printf "\n"
-src_total=$(parse_extensions "fs2" SourceFormatToRegexMap[@])
+src_total=$(parse_extensions "fs2" SourceFormatToRegexMap)
+for k in "${!ExtCount[@]}"; do
+	printf "\tFile Extension: "; echo "${!ImageFormatToRegexMap[$k]}"; printf "\tCount: "; echo "${ExtCount[$k]}"; printf "\n"
+done
 printf "\tTotal Source Code Files: $src_total\n"
