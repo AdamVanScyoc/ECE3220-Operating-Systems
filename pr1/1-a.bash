@@ -15,11 +15,21 @@ function parse_extensions {
 		cd fs1/extensions
 		files=$(find "$PWD" -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash" ! -name "*.swo" ! -name "*.swp" ! -name "*.zip" -printf "%P ")
 
-		for ext in "${Exts[@]}"; do
-			temp=`grep $ext $files | wc -l`
-			ExtCount[$ext]=$[ExtCount[$ext] + $temp]
+		for ext in "${!Exts[@]}"; do
+			#echo $ext
+			temp=`grep ${Exts[$ext]} $files | wc -l`
+			#ExtCount[$ext]=$[${ExtCount[$ext]} + $temp]
+			((ExtCount[$ext] += $temp))
+			#printf "ExtCount[$ext] = %d\n" ${ExtCount[$ext]}
+			#printf "temp = %d\n" $temp
+			#let "ExtCount[$ext] += $temp"
 			total=$[$total + ${ExtCount[$ext]}]
 		done
+
+#		for ext in ${ExtCount[@]}; do
+#			printf "%d " ${ExtCount[$ext]}
+#		done		
+		echo ${ExtCount[@]}
 
 	fi
 
@@ -28,7 +38,9 @@ function parse_extensions {
 		cd fs2
 		files=$(find . -type f \( -name "extensions.txt" -or -name "extensions2.txt" \) -printf "%P ")
 
-		for ext in "${Exts[@]}"; do
+		for ext in ${Exts[@]}; do
+			#echo $ext
+			#echo "grep $ext $files | wc -l"
 			temp=`grep $ext $files | wc -l`
 			ExtCount[$ext]=$[ExtCount[$ext] + $temp]
 			total=$[$total + ${ExtCount[$ext]}]
@@ -36,8 +48,8 @@ function parse_extensions {
 	fi
 
 	cd $OLDPWD
-	echo $total
-	return $total
+	#{echo $total
+	printf " %d " $total
 }
 
 #image_formats=("\.jpeg$" "\.bmp$" "\.png$" "\.gif$")
@@ -48,17 +60,29 @@ declare -A SourceFormatToRegexMap=( [.c]="\.c$" [.py]="\.py$" [.pl]="\.pl$" [.sh
 
 # Count all image filetypes in ImageFormatToRegexMap
 printf "\nSearching for these Image File formats: "; echo "${!ImageFormatToRegexMap[@]}";  printf "\n"
-img_total=$(parse_extensions "fs1" ImageFormatToRegexMap)
+declare -a img_totals=$(parse_extensions "fs1" ImageFormatToRegexMap)
 # Use a ExtCount as a parallel array with ImageFormatToRegexMap to display each extension's count
-for k in "${!ExtCount[@]}"; do
-	printf "\tFile Extension: "; echo "${!ImageFormatToRegexMap[$k]}"; printf "\tCount: "; echo "${ExtCount[$k]}"; printf "\n"
+#echo ${!ImageFormatToRegexMap[@]}
+declare -a totals
+count=0
+for i in $img_totals[@]; do
+	totals[count]=$i		
+	((count++))
 done
-printf "\tTotal Image Files: $img_total\n\n"
+
+count=0
+for k in ${!ImageFormatToRegexMap[@]}; do
+	#printf "\tFile Extension:\t%s\tCount: %d\n" $k $img_totals[$count]
+	printf "\tFile Extension: $k\tCount: ${totals[$count]}\n"
+	((count++))
+done
+printf "\tTotal Image Files: ${totals[4]}\n\n"
 
 # Count all source code filetypes in SourceFormatToRegexMap
 printf "Searching for these Source Code formats: "; echo "${!SourceFormatToRegexMap[@]}"; printf "\n"
-src_total=$(parse_extensions "fs2" SourceFormatToRegexMap)
-for k in "${!ExtCount[@]}"; do
-	printf "\tFile Extension: "; echo "${!ImageFormatToRegexMap[$k]}"; printf "\tCount: "; echo "${ExtCount[$k]}"; printf "\n"
+declare -a FileExtensions="${SourceFormatToRegexMap[@]}"
+src_total=$(parse_extensions "fs2" FileExtensions)
+for k in ${!SourceFormatToRegexMap[@]}; do
+	printf "\tFile Extension: "; echo "${!SourceFormatToRegexMap[$k]}"; printf "\tCount: "; echo "${ExtCount[$k]}"; printf "\n"
 done
 printf "\tTotal Source Code Files: $src_total\n"
