@@ -1,0 +1,31 @@
+Adam Van Scyoc
+Program 1 SWOT
+
+1) SWOT for Lights
+
+It is techinically possible to have every light fixture accessible as a Linux-style
+device file (i.e. "/dev/*") as part of the Internet of Things. These lights would 
+have hardware added that provided an internet uplink. The organization of this network 
+of lights could be in the form of a file system. For example, there could be a directory
+for the Clemson Campus that the fixture exists in, the building, the floor, and the room 
+number or name, and then a UID for the light. For example:
+/dev/main/core/2/dininghall/2AE4
+/dev/charleston/agriculturebuilding/0/foyer/F09C
+
+2) SWOT for Dams
+
+Something similar could be achieved with every dam in South Carolina. As in the previous case,
+ this would involve some significant overhead, and many of the dams are remote -
+ so a network connection would require a powerful signal. But this system would allow us to 
+monitor the status of every individual device (also a benefit in the case of Clemson light fixtures).
+A potential drawback (which also applies to Clemson light fixtures) is that these devices could
+potentially be exposed to the general publix on the internet - which could allow disclosure of 
+sensitive information or even malicious control of the devices/dams.
+The dams could again be organized into a file-like hierarchy, in this case by county, and body of water, then with a UID, eg:
+/dev/charleston/lakemarion/3AFC
+For the Wallace Dam on the Oconee River (which is technically in Georgia)
+/dev/morgan/oconeeriver/990E
+
+You could even use the common name of the Oconee River Dam, "Wallace Dam", as a sort of
+simlink:
+WallaceDam -> /dev/morgan/oconeeriver/990E

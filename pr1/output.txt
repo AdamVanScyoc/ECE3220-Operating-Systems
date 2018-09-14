@@ -1,0 +1,149 @@
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files from all time periods.
+	File Extension: .jpeg	Count: 108
+	File Extension: .gif	Count: 12931
+	File Extension: .bmp	Count: 26
+	File Extension: .png	Count: 0
+	Total Image Files: 13065
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files from all time periods.
+	File Extension: .pl	Count: 344
+	File Extension: .c	Count: 14626
+	File Extension: .py	Count: 0
+	File Extension: .sh	Count: 193
+	Total Source Code Files: 15163
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files from all time periods.
+	File Extension: .jpeg	Count: 415
+	File Extension: .gif	Count: 63590
+	File Extension: .bmp	Count: 2336
+	File Extension: .png	Count: 90002
+	Total Image Files: 156343
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files from all time periods.
+	File Extension: .pl	Count: 5517
+	File Extension: .c	Count: 6566
+	File Extension: .py	Count: 52653
+	File Extension: .sh	Count: 3265
+	Total Source Code Files: 68001
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files from 1990-1995	
+	File Extension: .jpeg	Count: 108
+	File Extension: .gif	Count: 12931
+	File Extension: .bmp	Count: 26
+	File Extension: .png	Count: 0
+	Total Image Files: 13065
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files from 1990-1995	
+	File Extension: .pl	Count: 344
+	File Extension: .c	Count: 14626
+	File Extension: .py	Count: 0
+	File Extension: .sh	Count: 193
+	Total Source Code Files: 15163
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files from 1990-1995	
+	File Extension: .jpeg	Count: 415
+	File Extension: .gif	Count: 63590
+	File Extension: .bmp	Count: 2336
+	File Extension: .png	Count: 90002
+	Total Image Files: 156343
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files from 1990-1995	
+	File Extension: .pl	Count: 5517
+	File Extension: .c	Count: 6566
+	File Extension: .py	Count: 52653
+	File Extension: .sh	Count: 3265
+	Total Source Code Files: 68001
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files created prior to 1990
+	File Extension: .jpeg	Count: 108
+	File Extension: .gif	Count: 12931
+	File Extension: .bmp	Count: 26
+	File Extension: .png	Count: 0
+	Total Image Files: 13065
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs1
+	Searching these files:	tape1-vol1 tape2-vol1 tape3-vol1 tape4-vol1 tape4-vol2 tape4-vol3 tape4-vol4 tape5-vol1 tape5-vol2
+
+Searching files created prior to 1990
+	File Extension: .pl	Count: 344
+	File Extension: .c	Count: 14626
+	File Extension: .py	Count: 0
+	File Extension: .sh	Count: 193
+	Total Source Code Files: 15163
+
+Searching for these Image File formats: .jpeg .gif .bmp .png
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files created prior to 1990
+	File Extension: .jpeg	Count: 415
+	File Extension: .gif	Count: 63590
+	File Extension: .bmp	Count: 2336
+	File Extension: .png	Count: 90002
+	Total Image Files: 156343
+
+
+Searching for these Source Code formats: .pl .c .py .sh
+In Directory: fs2
+	Searching these files:	extensions.txt
+
+Searching files created prior to 1990
+	File Extension: .pl	Count: 5517
+	File Extension: .c	Count: 6566
+	File Extension: .py	Count: 52653
+	File Extension: .sh	Count: 3265
+	Total Source Code Files: 68001
+
+
+Total Files in fs1/:	395747
+Total Files in fs2/:	5760770
+
+Number of Files in fs1/ with no extension:	176471
+Number of Files in fs2/ with no extensions:	2008208
+
+Fraction of Files in fs1/ with no extension:	0.445919
+Fraction of Files in fs2/ with no extension:	0.348601
+

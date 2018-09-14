@@ -1,0 +1,22 @@
+Adam Van Scyoc
+
+Program 1: parsefiles.sh 
+(see also attached output.txt)
+
+parsefiles.sh is A fault-tolerant, self contained bash script that parses the ls 
+outputs of several files systems (fs1 and fs2). It does this by combing through these 
+ls outputs (which are stored as text), and processing that text
+by extracting relevant fields and processing the data in a particular way.
+
+The files that contain the text output of the ls command (of the files systems we are dealing with)
+ are first listed by the bash command "find" with several arguements that narrow down the relevant files - which are different
+in the cases of fs1 and fs2 respectively. 
+Next, the command "grep" is used to retrieve all lines from these
+text files that contain a file name with an extension that matches a certain pattern.
+The output of the grep command is provided as input to the awk command, which allows
+us to view only files from a specified time period (any time, between during the years 1990-1995, or pre-1995).
+Finally, this is provided as input to the command 'wc -l', which count the number of lines matching this criteria,
+and stores this number as the file count.
+
+There are several nested loops allowing us to narrow are search by time frame and by fs1 versus fs2.
+
