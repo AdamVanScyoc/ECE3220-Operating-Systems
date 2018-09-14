@@ -3,11 +3,8 @@
 
 function parse_extensions {
 	# Check whether we are in fs1 or fs2
-	index=0
 	declare files
 	declare -n Exts=$2
-	specialCmd=$3
-	immediate=0
 	total=0
 	declare -A ExtCount
 
@@ -60,6 +57,9 @@ declare -A ImageFormatToRegexMap=( [.jpeg]="\.jpeg$" [.bmp]="\.bmp$" [.png]="\.p
 declare -A SourceFormatToRegexMap=( [.c]="\.c$" [.py]="\.py$" [.pl]="\.pl$" [.sh]="\.sh$" )
 declare -a directories=("fs1" "fs2")
 declare -a awk=("{ print }" "\$7 < 1995 && \$7 > 1990 { print }" "\$7 < 1990 { print }")
+# Store the overall totals for each listing
+fs1total=0
+fs2total=0
 
 
 # Iterate through the time periods - any, < 1990, and 1990 < spec < 1996,
@@ -72,8 +72,12 @@ for spec in "${awk[@]}"; do
 
 		if [ $cur = "fs1" ]; then
 			filesToSearch=`find "$PWD" -maxdepth 1 -type f ! -name "*.txt" ! -name "*.sh" ! -name "*.pl" ! -name "*.py" ! -name "*.bash" ! -name "*.swo" ! -name "*.swp" ! -name "*.zip" -printf "%P "`
+			fs1total=`cat $filesToSearch | wc -l`
+			fs1noextension=`grep -v "\." $filesToSearch | wc -l`
 		else
 			filesToSearch="extensions.txt"
+			fs2total=`cat $filesToSearch | wc -l`
+			fs2noextension=`grep -v "\." $filesToSearch | wc -l`
 		fi
 
 		# Count all image filetypes in ImageFormatToRegexMap
@@ -103,6 +107,7 @@ for spec in "${awk[@]}"; do
 			((count++))
 		done
 
+		# Store the overall totals for fs1 and fs2 for all periods
 		count=0
 		for k in ${!ImageFormatToRegexMap[@]}; do
 			printf "\tFile Extension: $k\tCount: ${totals[$count]}\n"
@@ -111,8 +116,8 @@ for spec in "${awk[@]}"; do
 		printf "\tTotal Image Files: ${totals[4]}\n\n"
 
 		# Count all source code filetypes in SourceFormatToRegexMap
-		printf "Searching for these Source Code formats: "; echo "${!SourceFormatToRegexMap[@]}"; printf "In Directory: $cur\n"
-		printf "Searching these files:\t"; echo $filesToSearch; printf "\n"
+		printf "\nSearching for these Source Code formats: "; echo "${!SourceFormatToRegexMap[@]}"; printf "In Directory: $cur\n"
+		printf "\tSearching these files:\t"; echo $filesToSearch; printf "\n"
 		# Decide, based on what years we are searching for, how to call function and how to display search period.
 		case "$spec" in
 			"awk '{ print }'")
@@ -145,3 +150,14 @@ for spec in "${awk[@]}"; do
 		cd $OLDPWD
 	done # end for directories
 done # end for spcCmd
+
+printf "\n\nTotal Files in fs1/:\t%d" $fs1total
+printf "\nTotal Files in fs2/:\t%d" $fs2total
+
+printf "\n\nNumber of Files in fs1/ with no extension:\t$fs1noextension"
+printf "\nNumber of Files in fs2/ with no extensions:\t$fs2noextension"
+
+printf "\n\nFraction of Files in fs1/ with no extension:\t%f" $(bc -l <<< "$fs1noextension / $fs1total")
+printf "\nFraction of Files in fs2/ with no extension:\t%f" $(bc -l <<< "$fs2noextension / $fs2total")
+printf "\n\n"
+
